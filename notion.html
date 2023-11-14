@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Poppins', sans-serif; /* Set Poppins as the default font */
+            font-weight: 700;
+        }
+
+        .countdown {
+            display: flex;
+            font-size: 2rem;
+        }
+
+        .countdown div {
+            margin: 0 10px;
+        }
+    </style>
+    <title>24-Hour Countdown Timer</title>
+</head>
+
+<body>
+    <div class="countdown" id="countdown">
+        <div class="hours">00</div>
+        <div class="minutes">00</div>
+        <div class="seconds">00</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const countdownElement = document.getElementById('countdown');
+
+            function updateCountdown() {
+                const now = new Date();
+                const targetTime = new Date(now);
+                targetTime.setHours(24, 0, 0, 0); // Set the target time to 24 hours from now
+
+                const timeDifference = targetTime - now;
+
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                countdownElement.children[0].innerText = padZero(hours);
+                countdownElement.children[1].innerText = padZero(minutes);
+                countdownElement.children[2].innerText = padZero(seconds);
+            }
+
+            function padZero(number) {
+                return number < 10 ? '0' + number : number;
+            }
+
+            // Initial update
+            updateCountdown();
+
+            // Update every second
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
+
+</html>
